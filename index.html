@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>todo-proyect</title>
+</head>
+
+<body>
+  <header></header>
+  <main>
+    <div id="app"></div>
+    <button id="btn-add-task">+</button>
+    <dialog id="task-modal">
+      <form id="task-form">
+        <input type="text" name="task-name" id="tName">
+        <input type="date" name="task-date" id="tDate">
+        <select name="task-select" id="tSelect">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button type="submit">Save</button>
+        <button type="button">Cancel</button>
+      </form>
+    </dialog>
+  </main>
+  <footer></footer>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

@@ -6,8 +6,8 @@ export const createProject = (name) => {
             project.todos.push(newTodo);
             // project.todos.push(newTodo);
         },
-        removeTodo(titleToRemove) {
-            project.todos = project.todos.filter((task) => task.title !== titleToRemove);
+        removeTodo(idToRemove) {
+            project.todos = project.todos.filter((task) => task.id !== idToRemove);
         }
     };
     return project;

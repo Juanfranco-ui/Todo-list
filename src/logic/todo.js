@@ -1,4 +1,4 @@
-export const createTodo = (title, description, dueDate, priority, notes, checklist) => {
+export const createTodo = (title, description, dueDate, priority, notes, checklist, id = crypto.randomUUID()) => {
 
     const todo = {
         title,
@@ -7,6 +7,7 @@ export const createTodo = (title, description, dueDate, priority, notes, checkli
         priority,
         notes,
         checklist,
+        id,
         isCompleted: false,
         createdAt: Date.now(),
         updatePriority(newPriority) {

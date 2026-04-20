@@ -10,7 +10,13 @@ const uiController = (function () {
         }
         tasksArray.forEach((t) => {
             let taskDiv = document.createElement('div');
-            taskDiv.textContent = t.title;
+            taskDiv.classList.add('task-item');
+            taskDiv.innerHTML = `<input type="checkbox" class="toggle-checkbox" data-id="${t.id}" ${t.isCompleted ? "checked" : ""}>
+
+            <span class="task-title"></span>
+            <button class="delete-btn" data-id="${t.id}">Delete</button>`
+            let spanTitle = taskDiv.querySelector('.task-title');
+            spanTitle.textContent = t.title;
 
             content.appendChild(taskDiv);
         });

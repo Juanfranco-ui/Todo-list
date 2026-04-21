@@ -66,15 +66,26 @@ appContainer.addEventListener('click', (e) => {
     console.log("2. Tareas restantes en memoria:",
       appController.getAllTasks());
     appController.save();
-    uiController.renderTasks(appController.getTodayTasks());
+    uiController.renderTasks(appController.getTasksForCurrentView());
   }
 
   if (e.target.classList.contains('toggle-checkbox')) {
     let taskId = e.target.dataset.id;
     appController.toggleTaskComplete(taskId);
-    uiController.renderTasks(appController.getTodayTasks());
+    uiController.renderTasks(appController.getTasksForCurrentView());
   }
 });
 
+const appSidebar = document.getElementById('sidebar');
+appSidebar.addEventListener('click', (e) => {
+  if (e.target.classList.contains('nav-btn')) {
+    document.querySelectorAll('.nav-btn').forEach(button => { button.classList.remove('active'); });
+    e.target.classList.add('active');
+    let viewName = e.target.dataset.view;
+    appController.setCurrentView(viewName);
+    uiController.renderTasks(appController.getTasksForCurrentView());
+  }
+})
+
 // El proyecto Calendar ya se inicia o vincula en la parte superior
-uiController.renderTasks(appController.getTodayTasks());
+uiController.renderTasks(appController.getTasksForCurrentView());

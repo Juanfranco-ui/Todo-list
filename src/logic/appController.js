@@ -1,3 +1,4 @@
+import { isAfter, startOfToday, compareAsc } from 'date-fns';
 import { createProject } from './project.js';
 import { createTodo } from './todo.js';
 import { format } from 'date-fns';
@@ -54,6 +55,53 @@ const appController = (function () {
         return projectData;
     }
 
+    let currentView = localStorage.getItem('todoapp-view') || "today";
+
+    function getCurrentView() {
+        return currentView;
+    }
+
+    function getTasksForCurrentView() {
+        switch (currentView) {
+            case "inbox":
+                return getAllTasks();
+            case "today":
+                return getTodayTasks();
+            case "logbook":
+                return getAllTasks().filter(task => task.isCompleted);
+            case "upcoming":
+                return getUpComingTasks();
+            case "anytime":
+                return getAnytimeTasks();
+            case "someday":
+                return getSomedayTasks();
+            default:
+                return getTodayTasks();
+        }
+    }
+
+    function getInboxTasks() {
+        let inboxProject = projects.find(inbox => inbox.name === "Inbox");
+        return inboxProject ? inboxProject.todos : [];
+    }
+
+    function getUpComingTasks() {
+        return getAllTasks().filter(task => task.dueDate !== "" && isAfter(new Date(task.dueDate), startOfToday()).sort((a, b) => compareAsc(new Date(a.dueDate), new Date(b.dueDate))));
+    }
+
+    function getAnytimeTasks() {
+        return getAllTasks().filter(task => task.dueDate === "" && task.isSomeday === false);
+    }
+
+    function getSomedayTasks() {
+        return getAllTasks().filter(task => task.isSomeday === true);
+    }
+
+    function setCurrentView(newView) {
+        currentView = newView;
+        localStorage.setItem('todoapp-view', currentView);
+    }
+
     function deleteTask(taskId) {
         projects.forEach((project) => {
             project.removeTodo(taskId);
@@ -88,6 +136,13 @@ const appController = (function () {
         deleteTask,
         getAllTasks,
         getTodayTasks,
+        getCurrentView,
+        getTasksForCurrentView,
+        getInboxTasks,
+        getUpComingTasks,
+        getAnytimeTasks,
+        getSomedayTasks,
+        setCurrentView,
         toggleTaskComplete,
         save: saveProjects
     };

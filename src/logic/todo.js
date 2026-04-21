@@ -9,6 +9,7 @@ export const createTodo = (title, description, dueDate, priority, notes, checkli
         checklist,
         id,
         isCompleted: false,
+        isSomeday: false,
         createdAt: Date.now(),
         updatePriority(newPriority) {
             todo.priority = newPriority;

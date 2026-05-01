@@ -39,7 +39,8 @@ const appController = (function () {
 
         let obj = JSON.parse(arr);
         let projectData = obj.map((data) => {
-            let project = createProject(data.name);
+            // Preserve the saved project id so references remain stable
+            let project = createProject(data.name, data.id || crypto.randomUUID());
             data.todos.forEach((todo) => {
                 let newTask = createTodo(todo.title, todo.description, todo.dueDate, todo.priority, todo.notes, todo.checklist, todo.id);
                 newTask.isCompleted = todo.isCompleted;
@@ -47,10 +48,8 @@ const appController = (function () {
                 project.addTodo(newTask);
             })
 
-
             return project;
         });
-
 
         return projectData;
     }
@@ -64,7 +63,7 @@ const appController = (function () {
     function getTasksForCurrentView() {
         switch (currentView) {
             case "inbox":
-                return getAllTasks();
+                return getInboxTasks();
             case "today":
                 return getTodayTasks();
             case "logbook":
@@ -76,6 +75,11 @@ const appController = (function () {
             case "someday":
                 return getSomedayTasks();
             default:
+                if (currentView.startsWith('project:')) {
+                    const projId = currentView.replace('project:', '');
+                    const project = projects.find(p => p.id === projId);
+                    return project ? project.todos : [];
+                }
                 return getTodayTasks();
         }
     }
@@ -86,7 +90,7 @@ const appController = (function () {
     }
 
     function getUpComingTasks() {
-        return getAllTasks().filter(task => task.dueDate !== "" && isAfter(new Date(task.dueDate), startOfToday()).sort((a, b) => compareAsc(new Date(a.dueDate), new Date(b.dueDate))));
+        return getAllTasks().filter(task => task.dueDate !== "" && isAfter(new Date(task.dueDate), startOfToday())).sort((a, b) => compareAsc(new Date(a.dueDate), new Date(b.dueDate)));
     }
 
     function getAnytimeTasks() {
@@ -130,10 +134,56 @@ const appController = (function () {
         }
     }
 
+    function editTask(taskId, newTitle, newDate, newPriority) {
+        let findAll = getAllTasks();
+        let taskFinder = findAll.find(task => task.id === taskId);
+        
+        if (taskFinder) {
+            taskFinder.title = newTitle;
+            taskFinder.dueDate = newDate;
+            taskFinder.priority = newPriority;
+            saveProjects();
+        }
+    }
+
+    function deleteProject(projectId, deleteAll = false) {
+        const projectIndex = projects.findIndex(p => p.id === projectId);
+        if (projectIndex === -1) return;
+
+        const project = projects[projectIndex];
+
+        if (!deleteAll && project.todos.length > 0) {
+            // Move tasks to Inbox
+            const inbox = projects.find(p => p.name === 'Inbox');
+            if (inbox) {
+                project.todos.forEach(task => inbox.addTodo(task));
+            }
+        }
+
+        projects.splice(projectIndex, 1);
+        saveProjects();
+    }
+
+    function moveTask(taskId, toProjectId) {
+        const task = getAllTasks().find(t => t.id === taskId);
+        if (!task) return;
+
+        // Remove from current project
+        projects.forEach(p => p.removeTodo(taskId));
+
+        // Add to target project
+        const target = projects.find(p => p.id === toProjectId);
+        if (target) target.addTodo(task);
+
+        saveProjects();
+    }
+
     return {
         getProjects,
         addProject,
         deleteTask,
+        deleteProject,
+        moveTask,
         getAllTasks,
         getTodayTasks,
         getCurrentView,
@@ -144,6 +194,7 @@ const appController = (function () {
         getSomedayTasks,
         setCurrentView,
         toggleTaskComplete,
+        editTask,
         save: saveProjects
     };
 })();

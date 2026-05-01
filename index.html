@@ -9,33 +9,75 @@
 </head>
 
 <body>
-  <header></header>
+  <header>
+    <div class="header-title-container">
+      <button id="view-selector-btn">
+        <h1 id="h-title"></h1>
+        <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </button>
+      <div id="view-dropdown" class="hidden">
+        <button class="nav-btn dropdown-item" data-view="inbox">Inbox</button>
+        <button class="nav-btn dropdown-item" data-view="today">Today</button>
+        <button class="nav-btn dropdown-item" data-view="logbook">LogBook</button>
+        <button class="nav-btn dropdown-item" data-view="upcoming">Upcoming</button>
+        <button class="nav-btn dropdown-item" data-view="anytime">Anytime</button>
+        <button class="nav-btn dropdown-item" data-view="someday">Someday</button>
+      </div>
+    </div>
+    <p id="h-date"></p>
+  </header>
   <main>
     <aside id="sidebar">
-      <button class="nav-btn" data-view="inbox">Inbox</button>
-      <button class="nav-btn" data-view="today">Today</button>
-      <button class="nav-btn" data-view="logbook">LogBook</button>
-      <button class="nav-btn" data-view="upcoming">Upcoming</button>
-      <button class="nav-btn" data-view="anytime">Anytime</button>
-      <button class="nav-btn" data-view="someday">Someday</button>
+      <p class="sidebar-label">Views</p>
+      <button class="nav-btn" data-view="inbox">📥 Inbox</button>
+      <button class="nav-btn" data-view="today">⭐ Today</button>
+      <button class="nav-btn" data-view="logbook">✅ LogBook</button>
+      <button class="nav-btn" data-view="upcoming">📅 Upcoming</button>
+      <button class="nav-btn" data-view="anytime">🔮 Anytime</button>
+      <button class="nav-btn" data-view="someday">🌙 Someday</button>
       <hr>
+      <div class="sidebar-projects-header">
+        <p class="sidebar-label">Projects</p>
+        <button id="sidebar-add-project-btn" title="New Project">+</button>
+      </div>
+      <div id="sidebar-projects-list"></div>
     </aside>
+    <div id="cancel-zone"></div>
     <div id="app"></div>
     <button id="btn-add-task">+</button>
     <dialog id="task-modal">
       <form id="task-form">
-        <input type="text" name="task-name" id="tName">
+        <input type="text" name="task-name" id="tName" required placeholder="Task name">
         <input type="date" name="task-date" id="tDate">
-        <select name="task-select" id="tSelect">
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
+        <select id="tProject" class="project-select">
+          <!-- Populated dynamically by JS -->
         </select>
+        <div class="priority-selector" id="tSelect">
+          <input type="radio" name="task-priority" id="priority-low" value="low" checked>
+          <label for="priority-low" class="priority-label low">Low</label>
+          
+          <input type="radio" name="task-priority" id="priority-medium" value="medium">
+          <label for="priority-medium" class="priority-label medium">Medium</label>
+          
+          <input type="radio" name="task-priority" id="priority-high" value="high">
+          <label for="priority-high" class="priority-label high">High</label>
+        </div>
         <button type="submit">Save</button>
-        <button type="button">Cancel</button>
+        <button type="button" class="cancelBtn">Cancel</button>
       </form>
     </dialog>
   </main>
+  <dialog id="confirm-modal">
+    <div class="confirm-content">
+      <h2 class="confirm-title">Delete Project?</h2>
+      <p class="confirm-body" id="confirm-body">This project has tasks. What would you like to do with them?</p>
+      <div class="confirm-actions">
+        <button id="confirm-move-inbox" class="confirm-btn secondary">Move to Inbox</button>
+        <button id="confirm-delete-all" class="confirm-btn danger">Delete Everything</button>
+      </div>
+      <button id="confirm-cancel" class="confirm-cancel-btn">Cancel</button>
+    </div>
+  </dialog>
   <footer></footer>
   <script type="module" src="/src/main.js"></script>
 </body>

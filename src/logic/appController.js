@@ -10,17 +10,7 @@ const appController = (function () {
 
     const getProjects = () => projects;
     const addProject = (project) => {
-
-        if (!project) {
-            return console.log("Null project") && null;
-        }
-
         const projectDup = projects.find((p) => p.name === project.name);
-
-        if (projectDup) {
-            return console.log("Name already exists, choose another")
-        }
-
         projects.push(project);
         saveProjects();
     }
@@ -134,14 +124,15 @@ const appController = (function () {
         }
     }
 
-    function editTask(taskId, newTitle, newDate, newPriority) {
+    function editTask(taskId, newTitle, newDate, newPriority, newNotes) {
         let findAll = getAllTasks();
         let taskFinder = findAll.find(task => task.id === taskId);
-        
+
         if (taskFinder) {
             taskFinder.title = newTitle;
             taskFinder.dueDate = newDate;
             taskFinder.priority = newPriority;
+            taskFinder.notes = newNotes;
             saveProjects();
         }
     }

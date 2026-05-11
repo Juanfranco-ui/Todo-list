@@ -28,16 +28,17 @@
         --bg-main: #000000;
         --bg-surface: #1C1C1E;
         --bg-surface-hover: #2C2C2E;
-        
+
         --text-primary: #FFFFFF;
-        --text-secondary: #EBEBF599; /* iOS styling */
-        
+        --text-secondary: #EBEBF599;
+        /* iOS styling */
+
         --accent-color: #0A84FF;
         --accent-hover: #0070DF;
         --success-color: #30D158;
         --warning-color: #FF9F0A;
         --danger-color: #FF453A;
-        
+
         --border-color: #38383A;
         --shadow-fab: 0px 8px 24px rgba(10, 132, 255, 0.15);
         --shadow-modal: 0 -4px 20px rgba(0, 0, 0, 0.5);
@@ -151,7 +152,8 @@ body {
 }
 
 /* FAB and Ghost */
-#btn-add-task, #btn-add-task-ghost {
+#btn-add-task,
+#btn-add-task-ghost {
     position: fixed;
     bottom: 24px;
     right: 24px;
@@ -193,7 +195,7 @@ body {
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
     z-index: 5;
     pointer-events: none;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
@@ -207,7 +209,7 @@ body {
 }
 
 #cancel-zone.hovered {
-    background: radial-gradient(circle, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 70%);
     transform: scale(1.2);
 }
 
@@ -298,9 +300,17 @@ body {
 }
 
 @keyframes checkBounce {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .delete-btn {
@@ -351,23 +361,43 @@ body {
 }
 
 @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
 }
 
 @keyframes slideDown {
-    from { transform: translateY(0); }
-    to { transform: translateY(100%); }
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(100%);
+    }
 }
 
 @keyframes fadeIn {
-    from { background-color: rgba(0, 0, 0, 0); }
-    to { background-color: rgba(0, 0, 0, 0.4); }
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    to {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
 }
 
 @keyframes fadeOut {
-    from { background-color: rgba(0, 0, 0, 0.4); }
-    to { background-color: rgba(0, 0, 0, 0); }
+    from {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    to {
+        background-color: rgba(0, 0, 0, 0);
+    }
 }
 
 /* Task Form */
@@ -414,18 +444,20 @@ body {
     transition: all 0.2s ease;
 }
 
-.priority-selector input[type="radio"]:checked + .priority-label {
+.priority-selector input[type="radio"]:checked+.priority-label {
     color: white;
     border-color: transparent;
 }
 
-.priority-selector input[type="radio"]:checked + .priority-label.low {
+.priority-selector input[type="radio"]:checked+.priority-label.low {
     background: var(--success-color);
 }
-.priority-selector input[type="radio"]:checked + .priority-label.medium {
+
+.priority-selector input[type="radio"]:checked+.priority-label.medium {
     background: var(--warning-color);
 }
-.priority-selector input[type="radio"]:checked + .priority-label.high {
+
+.priority-selector input[type="radio"]:checked+.priority-label.high {
     background: var(--danger-color);
 }
 
@@ -558,7 +590,7 @@ body {
 }
 
 #sidebar-add-project-btn:hover {
-    background: rgba(10,132,255,0.1);
+    background: rgba(10, 132, 255, 0.1);
 }
 
 .project-nav-btn {
@@ -627,7 +659,7 @@ body {
 }
 
 #confirm-modal::backdrop {
-    background: rgba(0,0,0,0);
+    background: rgba(0, 0, 0, 0);
 }
 
 #confirm-modal[open]::backdrop {
@@ -639,13 +671,27 @@ body {
 }
 
 @keyframes confirmFadeIn {
-    from { opacity: 0; transform: translate(-50%, -45%); }
-    to { opacity: 1; transform: translate(-50%, -50%); }
+    from {
+        opacity: 0;
+        transform: translate(-50%, -45%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
 
 @keyframes confirmFadeOut {
-    from { opacity: 1; transform: translate(-50%, -50%); }
-    to { opacity: 0; transform: translate(-50%, -45%); }
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate(-50%, -45%);
+    }
 }
 
 .confirm-content {
@@ -763,11 +809,13 @@ body {
         left: 240px;
         width: calc(100% - 240px);
     }
-    
+
     /* Hide dropdown chevron on desktop if you want, or let it work. Let's keep it functional but slightly styled for desktop. */
     .header-title-container {
-        padding-left: 0; /* Align with header padding in desktop */
+        padding-left: 0;
+        /* Align with header padding in desktop */
     }
+
     #view-dropdown {
         left: 0;
     }

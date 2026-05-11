@@ -50,8 +50,10 @@
     <button id="btn-add-task">+</button>
     <dialog id="task-modal">
       <form id="task-form">
-        <label for="tSomeday">Someday</label>
-        <input type="checkbox" name="task-someday" id="tSomeday">
+        <div class="someday-row">
+          <input type="checkbox" name="task-someday" id="tSomeday">
+          <label for="tSomeday">Someday</label>
+        </div>
         <label for="tName">Task Name</label>
         <input type="text" name="task-name" id="tName" required placeholder="Task name">
         <label for="tDate">Due Date</label>

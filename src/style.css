@@ -42,6 +42,11 @@
         --border-color: #38383A;
         --shadow-fab: 0px 8px 24px rgba(10, 132, 255, 0.15);
         --shadow-modal: 0 -4px 20px rgba(0, 0, 0, 0.5);
+
+        #view-dropdown {
+            background: rgba(28, 28, 30, 0.85);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
     }
 }
 
@@ -285,12 +290,12 @@ body {
 .toggle-checkbox::after {
     content: '';
     position: absolute;
-    top: 4px;
-    left: 8px;
-    width: 5px;
+    top: 5px;
+    left: 7px;
+    width: 6px;
     height: 10px;
     border: solid white;
-    border-width: 0 2px 2px 0;
+    border-width: 0 2.5px 2.5px 0;
     transform: rotate(45deg) scale(0);
     transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
@@ -400,6 +405,59 @@ body {
     }
 }
 
+/* Someday checkbox in modal */
+#task-form .someday-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0;
+}
+
+#task-form .someday-row label {
+    font-size: 16px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+}
+
+#tSomeday {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    margin: 0;
+    transition: all 0.2s ease;
+    background: transparent;
+}
+
+#tSomeday:checked {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+#tSomeday::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 6px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.15s ease;
+}
+
+#tSomeday:checked::after {
+    transform: rotate(45deg) scale(1);
+}
+
 /* Task Form */
 #task-form {
     display: flex;
@@ -407,7 +465,7 @@ body {
     gap: 16px;
 }
 
-#task-form input,
+#task-form input:not([type="checkbox"]),
 #task-form select {
     border: none;
     border-bottom: 1px solid var(--border-color);

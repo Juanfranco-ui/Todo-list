@@ -42,11 +42,19 @@
         --border-color: #38383A;
         --shadow-fab: 0px 8px 24px rgba(10, 132, 255, 0.15);
         --shadow-modal: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    }
 
-        #view-dropdown {
-            background: rgba(28, 28, 30, 0.85);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
+    #view-dropdown {
+        background: rgba(28, 28, 30, 0.85);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    #cancel-zone {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+    }
+
+    #cancel-zone.hovered {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
     }
 }
 
@@ -290,10 +298,10 @@ body {
 .toggle-checkbox::after {
     content: '';
     position: absolute;
-    top: 5px;
+    top: 3px;
     left: 7px;
     width: 6px;
-    height: 10px;
+    height: 11px;
     border: solid white;
     border-width: 0 2.5px 2.5px 0;
     transform: rotate(45deg) scale(0);
@@ -613,9 +621,23 @@ body {
     font-size: 15px;
     outline: none;
     background: transparent;
-    color: var(--text-secondary);
+    color: var(--text-primary);
     width: 100%;
     cursor: pointer;
+}
+
+.project-select option {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+}
+
+/* Modal form labels */
+#task-form label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 /* Sidebar Projects */
